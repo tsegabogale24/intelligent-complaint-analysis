@@ -138,7 +138,8 @@ def persist_vector_store(
 ):
     save_dir.mkdir(parents=True, exist_ok=True)
     faiss.write_index(index, str(save_dir / "faiss.index"))
-    metadata = [doc.metadata for doc in docs]
+    metadata = [{"text": doc.page_content, **doc.metadata} for doc in docs]
+
     with open(save_dir / "metadata.pkl", "wb") as fh:
         pickle.dump(metadata, fh)
     print(f"[✓] Vector store saved to {save_dir.resolve()}")
