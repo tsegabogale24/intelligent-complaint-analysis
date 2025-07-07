@@ -54,7 +54,7 @@ DEFAULT_SAVE_DIR = Path("vector_store")
 # ---------------------------------------------------------------------------
 
 def load_clean_data(csv_path: Path | str) -> pd.DataFrame:
-    """Load the pre‑cleaned CSV produced in Task 1."""
+    """Load the pre‑cleaned CSV produced in Task 1."""
     print(f"[+] Loading cleaned data from: {csv_path}")
     return pd.read_csv(csv_path)
 
@@ -166,13 +166,14 @@ def pipeline(
     emb = embed_documents(docs)
     index = build_faiss_index(emb)
     persist_vector_store(index, docs, save_dir)
+    return index
 
 
 # ---------------------------------------------------------------------------
 # CLI Entry‑Point
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Task 2: Chunk → Embed → Index")
+    parser = argparse.ArgumentParser(description="Task 2: Chunk → Embed → Index")
     parser.add_argument("--csv_path", default=default_csv_path, help="Input CSV file")
     parser.add_argument("--chunk_size", type=int, default=DEFAULT_CHUNK_SIZE)
     parser.add_argument("--chunk_overlap", type=int, default=DEFAULT_CHUNK_OVERLAP)
